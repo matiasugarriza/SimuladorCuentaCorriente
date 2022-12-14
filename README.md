@@ -10,7 +10,9 @@ El proyecto se trata de una simulación de cuenta corriente donde los datos se i
 
 ## Versión Actual
 * Cambios:
-
+    * Agregué el método foreach para que busque los valores que se muestran en el resumen y para que sume el saldo final.
+    * Armé la estructura inicial del html.
+    
 * Para mejorar:
     * Crear html de proyecto.
     * Hacer un prompt inicial con mensaje y opciones (1.Cargar Saldo Inicial 2.Cargar Nuevo Movimiento)
