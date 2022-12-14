@@ -10,9 +10,17 @@ El proyecto se trata de una simulación de cuenta corriente donde los datos se i
 
 ## Versión Actual
 * Cambios:
-    *Creé una clase para contener un método constructor con las propiedades necesarias para completar la información del movimiento.
-    *Declaré un array para almacenar los distintos movimientos.
-    *Creé una función que crea objetos y los almacena dentro  del array.
+
+* Para mejorar:
+    * Crear html de proyecto.
+    * Hacer un prompt inicial con mensaje y opciones (1.Cargar Saldo Inicial 2.Cargar Nuevo Movimiento)
+    * Hacer un alert que muestre los movimientos.
+
+## Versión 1de1571 "creación array":
+* Cambios:
+    * Creé una clase para contener un método constructor con las propiedades necesarias para completar la información del movimiento.
+    * Declaré un array para almacenar los distintos movimientos.
+    * Creé una función que crea objetos y los almacena dentro  del array.
     
 
 ## Versión de Pre Entrega 1

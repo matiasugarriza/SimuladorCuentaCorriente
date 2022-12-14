@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="img/icon-page.png">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Saldos</title>
+    <title>Simulador Cuenta Corriente</title>
+    
 </head>
 <body>
-    <h1>Primer Pre Entrega - Curso Java Script</h1>
-    <h2>Alumno: Matías Ugarriza</h2>
+    <nav>
+        <img src="img/icon-page.png" alt="sobre con plata">
+    </nav>
+    <h1>Simulador Cuenta Corriente</h1>
+    <h2>por Matías Ugarriza</h2>
+    <section>
+        <input type="search" name="filtro" placeholder="Busca un valor, fecha o detalle">
+        <div class="saldo">
+            <h3>Saldo</h3>
+            <p>Fecha</p>
+        </div>
+        <div class="movimientos">
+            <h3>Movimientos</h3>
+                <label>Mostrar:
+                    <select id="filtroMov" >
+                        <option value="Todos los movimientos"></option>
+                        <option value="Ingresos"></option>
+                        <option value="Egresos"></option>
+                    </select>
+                </label>
+                <p>Fecha</p>
+                <p>Detalle</p>
+                <p>Monto</p>
+        </div>
+    </section>
     <script src="main.js"></script>
 </body>
 </html>

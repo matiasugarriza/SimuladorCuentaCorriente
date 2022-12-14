@@ -41,10 +41,10 @@ let nMov = 0;
 let nuevoMov = 0;
 function mov() {
     nuevoMov = prompt("¿Desea realizar un nuevo movimiento? Escriba si o no.");
-    while(nuevoMov == "Si" || nuevoMov == "si" || nuevoMov == "Sí" || nuevoMov == "sí" || nuevoMov == "S" || nuevoMov == "s") {
+    if(nuevoMov == "Si" || nuevoMov == "si" || nuevoMov == "Sí" || nuevoMov == "sí" || nuevoMov == "S" || nuevoMov == "s") {
         nMov = nMov+1;
         nuevoMovimiento();
-    };
+    };    
 };
 
 mov();
@@ -66,11 +66,11 @@ function nuevoMovimiento(){
 };
 
 
-// 6) Modifico la variable saldoInicial para que sume el monto de cada objeto de array y con for busco dentro del array los datos de cada movimiento que luego imprimo por consola.
-for (const movimiento of movimientos) {
-    saldoInicial += movimiento.montoArray;
-    console.log("Movimiento "+movimiento.nMovArray+": "+movimiento.fechaArray+" --> $"+movimiento.montoArray+" Detalle: "+movimiento.detalleArray+" | Saldo: $"+saldoInicial);
-}
-    
+// 6) Con el método for each hago una iteración para que busque los valores de cada movimiento que se deben mostrar por consola y para que sume el monto de cada movimiento al saldo inicial.
 
+movimientos.forEach(function(consultaMov) {
+    console.log(`Movimiento ${consultaMov.nMovArray}: ${consultaMov.fechaArray} - ${consultaMov.detalleArray} --> $${consultaMov.montoArray}`); 
+    saldoInicial += consultaMov.montoArray;
+});
 
+console.log(`Saldo: --> $${saldoInicial}`)
