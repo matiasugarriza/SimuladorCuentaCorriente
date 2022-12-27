@@ -25,22 +25,28 @@ function respuestaClick(){
     }
   }
 
-function recuperarDatos(){
-    
-}
+
 
 /* Estructuras de datos */
 
 //Array para almacenar los movimientos.
 const movimientos = [];
 
-/* Variables */
+/////* Variables */////
 let id = 0;
+
+//EnventListener Botón Guardar
+let boton = document.getElementById("btnGuardar")
+boton.addEventListener("click", respuestaClick)
 
 //Guardar valores en localStorage
 const guardarLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
 
-let boton = document.getElementById("btnGuardar")
-boton.addEventListener("click", respuestaClick)
+
 
 /* Ejecución del código */
+
+//Recuperar valores en localStorage
+for ( var i = 0, len = localStorage.length; i < len; ++i ) {
+    localStorage.getItem(localStorage.key(i));
+  }
