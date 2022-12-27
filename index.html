@@ -13,27 +13,52 @@
         <img src="img/icon-page.png" alt="sobre con plata">
     </nav>
     <h1>Simulador Cuenta Corriente</h1>
-    <h2>por Matías Ugarriza</h2>
     <section>
         <input type="search" name="filtro" placeholder="Busca un valor, fecha o detalle">
         <div class="saldo">
-            <h3>Saldo</h3>
+            <h2>Saldo</h2>
             <p>Fecha</p>
         </div>
-        <div class="movimientos">
+        <div class="nuevoMovimiento">
+            <form>
+                <label for="fecha">Fecha: </label>
+                <input type="date" id="fecha">
+                <label for="tipoDeMovimiento">Tipo de Movimiento</label>
+                <select id="tipoDeMovimiento">
+                    <option value="null">Seleccione una opción</option>
+                    <option value="saldoInicial">Saldo Inicial</option>
+                    <option value="ingreso">Ingreso</option>
+                    <option value="egreso">Egreso</option>
+                </select>
+                <label for="monto">Monto: </label>
+                <input type="number" id="monto" placeholder="0">
+                <label for="detalle">Detalle</label>
+                <input type="text" id="detalle">
+                <button id="btnGuardar">Guardar</button>
+            </form>
+        </div>
+        <div id="movimientos">
             <h3>Movimientos</h3>
-                <label>Mostrar:
-                    <select id="filtroMov" >
-                        <option value="Todos los movimientos"></option>
-                        <option value="Ingresos"></option>
-                        <option value="Egresos"></option>
-                    </select>
-                </label>
+            <label>Mostrar:
+                <select id="filtrarMovivimientos" >
+                    <option value="todosLosMovimientos">Todos los Movimientos</option>
+                    <option value="ingresos">Ingresos</option>
+                    <option value="egresos">Egresos</option>
+                </select>
+            </label>
+            <div class="columnasMovimientos">
                 <p>Fecha</p>
                 <p>Detalle</p>
                 <p>Monto</p>
+            </div>
+            <div id="contenedorMovimientos" class="columnasMovimientos">
+
+            </div>
         </div>
     </section>
+    <footer>
+        <p>Hecho por Matías Ugarriza</p>
+    </footer>
     <script src="main.js"></script>
 </body>
 </html>

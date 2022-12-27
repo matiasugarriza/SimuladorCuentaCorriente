@@ -1,76 +1,46 @@
+/* Clases */
 
-/* CALCULADORA DE SALDOS */
-
-//OBJETIVO: Una aplicación que calcule, a partir de un saldo inicial, los movs diferenciando entre Ingreso y Egreso (Condicional). Se podrán cargar diversos movs (Ciclo) hasta dar por finalizada la carga. Luego, el programa entregará una lista de movs, una suma de Ingresos, una suma de Egresos y el Saldo Final.
-
-
-/* PASOS DEL PROGRAMA */
-
-// 1) Fecha y Saldo Inicial
-let fechaInicial = 0;
-let saldoInicial = 0;
-function inicio(){
-    fechaInicial = prompt("Escriba la fecha Inicial en el siguiente formato: dd/mm/aaaa");
-    saldoInicial = parseFloat(prompt("Escriba el saldo Inicial: "));
-    while (isNaN(saldoInicial)|| saldoInicial == undefined){
-        saldoInicial = 0;
-    }
-    console.log("Saldo inicial: " + fechaInicial + " --> $" + saldoInicial);
-}
-
-inicio();
-
-
-
-// 2) Creo una clase que contiene un constructor para crear los movimientos.
-
+//Clase para instanciar el constructor de objeto
 class Movimiento {
-    constructor(nMovArray, fechaArray, montoArray, tipoMovArray, detalleArray) {
-        this.nMovArray = nMovArray;
-        this.fechaArray  = fechaArray;
-        this.montoArray  = montoArray;
-        this.tipoMovArray = tipoMovArray;
-        this.detalleArray = detalleArray;
+    constructor(id, fecha, monto, tipoDeMovimiento, detalle) {
+        this.id = id;
+        this.fecha = fecha;
+        this.monto = monto;
+        this.tipoDeMovimiento = tipoDeMovimiento;
+        this.detalle = detalle;
     }
 }
-// 3) Declaro un array para almacenar los distintos movimientos.
+
+/* Funciones: */
+function respuestaClick(){
+    id ++;    
+    fecha = document.getElementById("fecha").value;
+    monto = document.getElementById("monto").value;
+    tipoDeMovimiento = document.getElementById("tipoDeMovimiento").value;
+    detalle = document.getElementById("detalle").value;
+    movimientos.push(new Movimiento(id, fecha, monto, tipoDeMovimiento, detalle));
+    localStorage.setItem("id", id);
+    for (const movimiento of movimientos) {
+        guardarLocal(movimiento.id, JSON.stringify(movimiento));
+    }
+  }
+
+function recuperarDatos(){
+    
+}
+
+/* Estructuras de datos */
+
+//Array para almacenar los movimientos.
 const movimientos = [];
 
-// 4) Creo una función con condicional para crear nuevos movimientos.
-let nMov = 0;
-let nuevoMov = 0;
-function mov() {
-    nuevoMov = prompt("¿Desea realizar un nuevo movimiento? Escriba si o no.");
-    if(nuevoMov == "Si" || nuevoMov == "si" || nuevoMov == "Sí" || nuevoMov == "sí" || nuevoMov == "S" || nuevoMov == "s") {
-        nMov = nMov+1;
-        nuevoMovimiento();
-    };    
-};
+/* Variables */
+let id = 0;
 
-mov();
+//Guardar valores en localStorage
+const guardarLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
 
-// 5) Declaro una función para cargar y almacenar los datos dentro del array de movimientos.
-function nuevoMovimiento(){
-    let fecha = prompt("Escriba la fecha de este movimiento en el siguiente formato: dd/mm/aaaa");
-    let monto = parseFloat(prompt("Ingrese el valor: "));
-    while(isNaN(monto)){
-        monto=0;
-    }
-    let tipoMov = parseInt(prompt("¿Qué tipo de movimiento es? Escriba 1 si es un Ingreso y 2 si es un Egreso."))
-    let detalle = prompt("Ingrese un detalle sobre el movimiento: ")
-    if (tipoMov != 1 || tipoMov == 2) {
-        monto = - monto;
-    };
-    movimientos.push(new Movimiento (nMov, fecha, monto, tipoMov, detalle));
-    mov();
-};
+let boton = document.getElementById("btnGuardar")
+boton.addEventListener("click", respuestaClick)
 
-
-// 6) Con el método for each hago una iteración para que busque los valores de cada movimiento que se deben mostrar por consola y para que sume el monto de cada movimiento al saldo inicial.
-
-movimientos.forEach(function(consultaMov) {
-    console.log(`Movimiento ${consultaMov.nMovArray}: ${consultaMov.fechaArray} - ${consultaMov.detalleArray} --> $${consultaMov.montoArray}`); 
-    saldoInicial += consultaMov.montoArray;
-});
-
-console.log(`Saldo: --> $${saldoInicial}`)
+/* Ejecución del código */

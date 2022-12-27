@@ -7,8 +7,21 @@ El proyecto se trata de una simulación de cuenta corriente donde los datos se i
 2. Se registra una cantidad de movimientos indefinida y el sistema devuelve los datos de cada movimiento. En paralelo suma o resta estos valores del saldo inicial.
 3. Se imprime en consola el saldo final.
 
+## Versión Actual:
+*Cambios:
+    * Creé Formulario HTML.
+    * Creé Evento y configuré interacción entre formulario y constructor de objetos.
 
-## Versión Actual
+
+* Para avanzar:
+    * Recuperar info de localStorage.
+    * Configurar almacenamiento en localStorage.
+    * Utilizar innerHTML para guardar los datos de los movimientos en el html.
+    * Crear nuevos botones para borrar o modificar movimientos.
+    * Configurar barra de búsqueda.
+    
+
+## Versión 53197c4 "Pre Entrega 2.1"
 * Cambios:
     * Agregué el método foreach para que busque los valores que se muestran en el resumen y para que sume el saldo final.
     * Armé la estructura inicial del html.
