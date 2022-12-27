@@ -19,10 +19,17 @@ function respuestaClick(){
     tipoDeMovimiento = document.getElementById("tipoDeMovimiento").value;
     detalle = document.getElementById("detalle").value;
     movimientos.push(new Movimiento(id, fecha, monto, tipoDeMovimiento, detalle));
-    localStorage.setItem("id", id);
     for (const movimiento of movimientos) {
         guardarLocal(movimiento.id, JSON.stringify(movimiento));
     }
+
+  }
+
+  let miFormulario = document.getElementById("formulario");
+  miFormulario.addEventListener("submit", validarFormulario);
+  
+  function validarFormulario(e){
+      e.preventDefault();
   }
 
 

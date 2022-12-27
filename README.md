@@ -13,6 +13,7 @@ El proyecto se trata de una simulación de cuenta corriente donde los datos se i
 *Cambios:
     * Creé Formulario HTML.
     * Creé Evento y configuré interacción entre formulario y constructor de objetos.
+    * Agregué preventDefault
 
 
 * Para avanzar:
@@ -21,6 +22,7 @@ El proyecto se trata de una simulación de cuenta corriente donde los datos se i
     * Utilizar innerHTML para guardar los datos de los movimientos en el html.
     * Crear nuevos botones para borrar o modificar movimientos.
     * Configurar barra de búsqueda.
+    * If para validar
     
 
 ## Versión 53197c4 "Pre Entrega 2.1"
