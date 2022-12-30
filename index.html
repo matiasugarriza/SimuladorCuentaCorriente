@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador Cuenta Corriente</title>
+    <link rel="stylesheet" href="style.css">
     
 </head>
 <body>
@@ -23,6 +24,8 @@
             <form id="formulario">
                 <label for="fecha">Fecha: </label>
                 <input type="date" id="fecha">
+                <label for="detalle">Detalle</label>
+                <input type="text" id="detalle">
                 <label for="tipoDeMovimiento">Tipo de Movimiento</label>
                 <select id="tipoDeMovimiento">
                     <option value="null">Seleccione una opción</option>
@@ -32,8 +35,6 @@
                 </select>
                 <label for="monto">Monto: </label>
                 <input type="number" id="monto" placeholder="0">
-                <label for="detalle">Detalle</label>
-                <input type="text" id="detalle">
                 <input type="submit" value="Guardar" id="btnGuardar">
             </form>
         </div>

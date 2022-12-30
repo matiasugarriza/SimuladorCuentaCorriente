@@ -12,8 +12,19 @@ class Movimiento {
 }
 
 /* Funciones: */
-function respuestaClick(){
-    id ++;    
+
+function idDeMovimiento() {
+    if(document.getElementById("tipoDeMovimiento").value === "saldoInicial"){
+    id = 0;
+    } else {
+    if(id = localStorage.key){
+        id = localStorage.length + 1;
+        localStorage.key(id);
+    }}
+}
+
+function guardarMovimiento(){
+    idDeMovimiento();
     fecha = document.getElementById("fecha").value;
     monto = document.getElementById("monto").value;
     tipoDeMovimiento = document.getElementById("tipoDeMovimiento").value;
@@ -22,12 +33,34 @@ function respuestaClick(){
     for (const movimiento of movimientos) {
         guardarLocal(movimiento.id, JSON.stringify(movimiento));
     }
-
+    mostrarMovimientos();
   }
+
+  //Modificación del DOM para mostrar movimientos:
+  const contenedorMovimientos = document.getElementById("contenedorMovimientos");
+
+  const mostrarMovimientos = () => {
+    movimientos.forEach( movimiento => {
+
+        const line = document.createElement("div");
+        line.classList.add("lineaMovimiento");
+        line.innerHTML = `
+                <div class="line">
+                    <p>${movimiento.fecha}</p>
+                    <p>${movimiento.detalle}</p>
+                    <p>${movimiento.monto}</p>
+                </div>
+        `
+    contenedorMovimientos.appendChild(line);
+    })
+  }
+  
 
   let miFormulario = document.getElementById("formulario");
   miFormulario.addEventListener("submit", validarFormulario);
-  
+  miFormulario.addEventListener("submit", guardarMovimiento);
+ 
+
   function validarFormulario(e){
       e.preventDefault();
   }
@@ -42,18 +75,8 @@ const movimientos = [];
 /////* Variables */////
 let id = 0;
 
-//EnventListener Botón Guardar
-let boton = document.getElementById("btnGuardar")
-boton.addEventListener("click", respuestaClick)
+
 
 //Guardar valores en localStorage
 const guardarLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
 
-
-
-/* Ejecución del código */
-
-//Recuperar valores en localStorage
-for ( var i = 0, len = localStorage.length; i < len; ++i ) {
-    localStorage.getItem(localStorage.key(i));
-  }
