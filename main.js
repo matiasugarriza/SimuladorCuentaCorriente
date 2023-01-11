@@ -1,4 +1,4 @@
-/* Clases */
+///////* Clases *////////
 
 //Clase para instanciar el constructor de objeto
 class Movimiento {
@@ -11,28 +11,85 @@ class Movimiento {
     }
 }
 
-/* Funciones: */
+//////* Funciones: *//////
+function fechaActual() {
+    const hoy = new Date();
+    const ahora = hoy.toLocaleDateString('es-AR');
+    const actualizarFecha = document.getElementById("fechaActual");
+    actualizarFecha.innerHTML = `: ${ahora}`;
+}
 
+//Recupero los datos del localStorage al iniciar recargar la página.
+function recuperarLocalStorage() {
+    for (let i = 1; i <= localStorage.length; i++) {
+        const movimientoRecuperado = JSON.parse(localStorage.getItem(i));
+        movimientos.push(movimientoRecuperado);
+    }
+    mostrarMovimientos();
+    const sumarSaldo = movimientos.map(movimiento => parseFloat(movimiento.monto)).reduce((prev, curr) => prev + curr, 0);
+    const mostrarSumaSaldo = document.getElementById("saldo");
+    mostrarSumaSaldo.innerHTML = `: $${sumarSaldo} `
+    fechaActual();
+}
+
+//Le doy un número de id a cada movimiento dependiendo si ese id ya existe en el local storage. El único valor que se pisa en el el local es el Saldo Inicial.
 function idDeMovimiento() {
-    if(document.getElementById("tipoDeMovimiento").value === "saldoInicial"){
-    id = 0;
+    if(document.getElementById("tipoDeMovimiento").value === "Saldo Inicial"){
+    id = 1;
+    document. location. reload();
     } else {
     if(id = localStorage.key){
         id = localStorage.length + 1;
         localStorage.key(id);
     }}
 }
-
+//Validación al enviar formulario.
+function validarFormularioVacio() {
+    if(monto <= 0 || fecha <= 0 || tipoDeMovimiento.value === "Seleccione una opción" ){
+        const avisoCompletarMonto = document.getElementById("avisos");
+        avisoCompletarMonto.classList.add("aviso");
+        avisoCompletarMonto.innerHTML = `
+                <p>Los datos no pueden estar vacíos.<p>
+        ` ;
+    }else{
+        const borrarAviso = document.getElementById("avisos");
+        borrarAviso.innerHTML = ``;
+        movimientos.push(new Movimiento(id, fecha, monto, tipoDeMovimiento, detalle));
+        for (const movimiento of movimientos) {
+            guardarLocal(movimiento.id, JSON.stringify(movimiento));
+        }
+    }
+}
+//Ordeno los movimientos según su fecha:
+function ordenarPorFecha(){
+    movimientos.sort((a, b) => {
+        if (a.fecha < b.fecha) {
+        return 1;
+        }
+        if (a.fecha > b.fecha) {
+        return -1;
+        }
+        return 0;
+        });
+}
+//Esta función toma los valores del formulario, borra los datos del contenedorMovimientos y los vuelve a escribir para que los movimientos queden ordenados segun fecha.
 function guardarMovimiento(){
     idDeMovimiento();
     fecha = document.getElementById("fecha").value;
-    monto = document.getElementById("monto").value;
     tipoDeMovimiento = document.getElementById("tipoDeMovimiento").value;
-    detalle = document.getElementById("detalle").value;
-    movimientos.push(new Movimiento(id, fecha, monto, tipoDeMovimiento, detalle));
-    for (const movimiento of movimientos) {
-        guardarLocal(movimiento.id, JSON.stringify(movimiento));
+    if (document.getElementById("detalle").value == ""){
+        detalle = document.getElementById("tipoDeMovimiento").value;
+    } else {
+        detalle = document.getElementById("detalle").value;
     }
+    if (tipoDeMovimiento = "Saldo Inicial" || "Ingreso") {
+        monto = document.getElementById("monto").value;
+    }else{
+        monto = -document.getElementById("monto").value;
+    }
+    validarFormularioVacio();
+    const borrarDatosAnteriores = document.getElementById("contenedorMovimientos");
+    borrarDatosAnteriores.innerHTML = ``;
     mostrarMovimientos();
   }
 
@@ -40,16 +97,15 @@ function guardarMovimiento(){
   const contenedorMovimientos = document.getElementById("contenedorMovimientos");
 
   const mostrarMovimientos = () => {
+    ordenarPorFecha();
     movimientos.forEach( movimiento => {
 
         const line = document.createElement("div");
-        line.classList.add("lineaMovimiento");
+        line.classList.add("columnasMovimientos");
         line.innerHTML = `
-                <div class="line">
                     <p>${movimiento.fecha}</p>
                     <p>${movimiento.detalle}</p>
                     <p>${movimiento.monto}</p>
-                </div>
         `
     contenedorMovimientos.appendChild(line);
     })
@@ -67,16 +123,17 @@ function guardarMovimiento(){
 
 
 
-/* Estructuras de datos */
+///////* Estructuras de datos *////////
 
 //Array para almacenar los movimientos.
 const movimientos = [];
 
+
 /////* Variables */////
 let id = 0;
 
-
-
 //Guardar valores en localStorage
-const guardarLocal = (clave, valor) => { localStorage.setItem(clave, valor) };
+const guardarLocal = (clave, valor) => {localStorage.setItem(clave, valor) };
 
+//////*Programa*//////
+recuperarLocalStorage();

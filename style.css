@@ -1,0 +1,115 @@
+*{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 0;
+}
+
+body {
+    background-color: rgb(255, 255, 255);
+}
+
+header {
+    background-color: rebeccapurple;
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1vh;
+}
+
+nav div {
+    display: flex;
+    align-items: center;
+}
+nav img {
+    width: 7vh;
+    padding: 0 2vw 0 1vw;
+}
+
+#buscar {
+    width: 30%;
+    margin-right: 2vw;
+}
+
+h1 {
+    color: aliceblue;
+}
+
+input, select {
+    border-radius: 5px;
+}
+.cajaSaldo {
+    width: 20vw;
+}
+.saldo{
+    display: block;
+}
+.saldo h2{
+    display: inline;
+}
+.fechaActual{
+    display: block;
+}
+.fechaActual p{
+    display: inline;
+}
+.nuevoMovimiento {
+    width: 80vw;
+}
+
+#formulario {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.tituloMovimientos{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 2vh;
+}
+.tituloMovimientos div{
+    display: flex;
+    align-items: center;
+}
+.tituloMovimientos div h3{
+    display: inline-block;
+    padding-right: 2vh;
+}
+svg{
+    display: inline-block;
+    width: 4vh;
+    fill: rebeccapurple;
+}
+.encabezadoMovimientos{
+    background-color: rebeccapurple;
+    color:aliceblue;
+}
+.columnasMovimientos {
+    padding-left: 1vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: space-around;
+}
+.lineaMovimientos:hover{
+    background-color: rgb(178, 173, 248);
+    transition-delay: 20ms;
+}
+.cajaContenedor {
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: rgb(194, 194, 194);
+    margin: 2vh;
+    box-shadow: 5px 5px ;
+    padding: 2vh;
+}
+
+footer{
+    background-color: rebeccapurple;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    color: aliceblue;
+    text-align: center;
+}

@@ -8,6 +8,13 @@ El proyecto se trata de una simulación de cuenta corriente donde los datos se i
 3. Se imprime en consola el saldo final.
 
 ## Versión Actual:
+*Cambios:
+    * Mejoré estilo CSS
+    * 
+
+## Version ""
+*Cambios:
+    * Agregué una función para validar la carga de datos en el formulario. Si es cero muestra un aviso.
 
 ## Versión eb674be "DOM":
 *Cambios:
