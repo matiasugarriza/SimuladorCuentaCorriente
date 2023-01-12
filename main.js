@@ -26,26 +26,20 @@ function recuperarLocalStorage() {
         movimientos.push(movimientoRecuperado);
     }
     mostrarMovimientos();
-    const sumarSaldo = movimientos.map(movimiento => parseFloat(movimiento.monto)).reduce((prev, curr) => prev + curr, 0);
-    const mostrarSumaSaldo = document.getElementById("saldo");
-    mostrarSumaSaldo.innerHTML = `: $${sumarSaldo} `
     fechaActual();
 }
 
-//Le doy un número de id a cada movimiento dependiendo si ese id ya existe en el local storage. El único valor que se pisa en el el local es el Saldo Inicial.
+//Le doy un número de id a cada movimiento dependiendo si ese id ya existe en el local storage.
 function idDeMovimiento() {
-    if(document.getElementById("tipoDeMovimiento").value === "Saldo Inicial"){
     id = 1;
-    document. location. reload();
-    } else {
     if(id = localStorage.key){
         id = localStorage.length + 1;
         localStorage.key(id);
-    }}
+    }
 }
 //Validación al enviar formulario.
 function validarFormularioVacio() {
-    if(monto <= 0 || fecha <= 0 || tipoDeMovimiento.value === "Seleccione una opción" ){
+    if(monto == 0 || fecha <= 0 || tipoDeMovimiento.value === "Seleccione una opción" ){
         const avisoCompletarMonto = document.getElementById("avisos");
         avisoCompletarMonto.classList.add("aviso");
         avisoCompletarMonto.innerHTML = `
@@ -76,32 +70,38 @@ function ordenarPorFecha(){
 function guardarMovimiento(){
     idDeMovimiento();
     fecha = document.getElementById("fecha").value;
+    monto = parseFloat(document.getElementById("monto").value);
+    if(document.getElementById("tipoDeMovimiento").value == "Egreso"){
+        monto *= -1;
+    };
     tipoDeMovimiento = document.getElementById("tipoDeMovimiento").value;
     if (document.getElementById("detalle").value == ""){
         detalle = document.getElementById("tipoDeMovimiento").value;
     } else {
         detalle = document.getElementById("detalle").value;
-    }
-    if (tipoDeMovimiento = "Saldo Inicial" || "Ingreso") {
-        monto = document.getElementById("monto").value;
-    }else{
-        monto = -document.getElementById("monto").value;
-    }
+    };
+    console.log(movimientos);
     validarFormularioVacio();
     const borrarDatosAnteriores = document.getElementById("contenedorMovimientos");
     borrarDatosAnteriores.innerHTML = ``;
     mostrarMovimientos();
   }
 
+  //Suma del saldos de los movimientos.
+  function sumarSaldo() {
+    const sumaSaldo = movimientos.map(movimiento => movimiento.monto).reduce((prev, curr) => prev + curr, 0);
+    const mostrarSumaSaldo = document.getElementById("saldo");
+    mostrarSumaSaldo.innerHTML = `: $${sumaSaldo.toFixed(2)} `
+  }
   //Modificación del DOM para mostrar movimientos:
   const contenedorMovimientos = document.getElementById("contenedorMovimientos");
 
   const mostrarMovimientos = () => {
     ordenarPorFecha();
     movimientos.forEach( movimiento => {
-
         const line = document.createElement("div");
         line.classList.add("columnasMovimientos");
+        line.classList.add("lineaMovimientos");
         line.innerHTML = `
                     <p>${movimiento.fecha}</p>
                     <p>${movimiento.detalle}</p>
@@ -109,6 +109,7 @@ function guardarMovimiento(){
         `
     contenedorMovimientos.appendChild(line);
     })
+    sumarSaldo();
   }
   
 

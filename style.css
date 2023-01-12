@@ -39,8 +39,17 @@ h1 {
 input, select {
     border-radius: 5px;
 }
+section{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-gap: 10px;
+    margin: 2vh;
+    padding-top: 2vh;
+}
 .cajaSaldo {
-    width: 20vw;
+    grid-column: 1;
+    grid-row: 1;
 }
 .saldo{
     display: block;
@@ -55,13 +64,17 @@ input, select {
     display: inline;
 }
 .nuevoMovimiento {
-    width: 80vw;
+    grid-column: 2/6;
+    grid-row: 1;
 }
-
 #formulario {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+}
+.movimientos {
+    grid-column: 1/6;
+    grid-row: 2/6;
 }
 .tituloMovimientos{
     display: flex;
@@ -97,14 +110,10 @@ svg{
     transition-delay: 20ms;
 }
 .cajaContenedor {
-    border: 1px solid black;
-    border-radius: 5px;
     background-color: rgb(194, 194, 194);
-    margin: 2vh;
     box-shadow: 5px 5px ;
     padding: 2vh;
 }
-
 footer{
     background-color: rebeccapurple;
     width: 100%;
@@ -112,4 +121,7 @@ footer{
     bottom: 0;
     color: aliceblue;
     text-align: center;
+}
+footer a{
+    color: aliceblue; 
 }
