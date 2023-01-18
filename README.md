@@ -7,6 +7,13 @@ El proyecto se trata de una simulación de cuenta corriente donde los datos se i
 2. Se registra una cantidad de movimientos indefinida y el sistema devuelve los datos de cada movimiento. En paralelo suma o resta estos valores del saldo inicial.
 3. Se imprime en consola el saldo final.
 
+## Version "Branch Notebook":
+*Cambios:
+    *Agregué botón para eliminar todo.
+    *
+
+    *Agregar ventana que consulte si se desea borrar todo con una librería.
+
 ## Versión Actual:
 *Cambios:
     * Mejoré estilo CSS

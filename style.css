@@ -109,6 +109,9 @@ svg{
     background-color: rgb(178, 173, 248);
     transition-delay: 20ms;
 }
+.lineaMovimientos .checkbox{
+    display: none;
+}
 .cajaContenedor {
     background-color: rgb(194, 194, 194);
     box-shadow: 5px 5px ;

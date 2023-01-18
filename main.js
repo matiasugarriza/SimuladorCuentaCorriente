@@ -39,7 +39,7 @@ function idDeMovimiento() {
 }
 //Validación al enviar formulario.
 function validarFormularioVacio() {
-    if(monto == 0 || fecha <= 0 || tipoDeMovimiento.value === "Seleccione una opción" ){
+    if(isNaN(monto) || fecha <= 0 || tipoDeMovimiento.value === "null" ){
         const avisoCompletarMonto = document.getElementById("avisos");
         avisoCompletarMonto.classList.add("aviso");
         avisoCompletarMonto.innerHTML = `
@@ -103,9 +103,10 @@ function guardarMovimiento(){
         line.classList.add("columnasMovimientos");
         line.classList.add("lineaMovimientos");
         line.innerHTML = `
-                    <p>${movimiento.fecha}</p>
-                    <p>${movimiento.detalle}</p>
-                    <p>${movimiento.monto}</p>
+                    <input type="checkbox" class="checkbox" id="checkbox${movimiento.id}" for="movimiento${movimiento.id}"></input>
+                    <p id="movimiento${movimiento.id}">${movimiento.fecha}</p>
+                    <p id="movimiento${movimiento.id}">${movimiento.detalle}</p>
+                    <p id="movimiento${movimiento.id}">$ ${movimiento.monto}</p>
         `
     contenedorMovimientos.appendChild(line);
     })
@@ -113,16 +114,38 @@ function guardarMovimiento(){
   }
   
 
-  let miFormulario = document.getElementById("formulario");
-  miFormulario.addEventListener("submit", validarFormulario);
-  miFormulario.addEventListener("submit", guardarMovimiento);
+  let miFormulario = document.getElementById("btnGuardar");
+  miFormulario.addEventListener("click", validarFormulario);
+  miFormulario.addEventListener("click", guardarMovimiento);
  
 
   function validarFormulario(e){
       e.preventDefault();
   }
 
+// Borrar todos los movimientos.
 
+  let btnBorrarTodo = document.getElementById("borrarTodo");
+  btnBorrarTodo.addEventListener("click", borrarTodo =>{
+    vex.dialog.confirm({
+        message: '¿Estás seguro de eliminar todos los movimientos?',
+        callback: function (value) {
+            if(value == "true"){
+                localStorage.clear();
+                location.reload(); 
+            }
+        }
+    })
+  });
+
+  //Ventana Movimiento
+function verMovimiento(){
+
+};
+function abrirMovimiento (){
+    let movimientoSeleccionado = document.getElementsByClassName("checkbox");
+    movimientoSeleccionado.addEventListener(onchange, verMovimiento());
+};
 
 ///////* Estructuras de datos *////////
 
@@ -135,6 +158,7 @@ let id = 0;
 
 //Guardar valores en localStorage
 const guardarLocal = (clave, valor) => {localStorage.setItem(clave, valor) };
+
 
 //////*Programa*//////
 recuperarLocalStorage();
