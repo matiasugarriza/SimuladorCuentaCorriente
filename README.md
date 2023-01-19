@@ -9,10 +9,32 @@ El proyecto se trata de una simulación de cuenta corriente donde los datos se i
 
 ## Versión Actual:
 *Cambios:
-    * Mejoré estilo CSS
-    * 
+    *Botón BorrarTodo con Sweet Alert.
 
-## Version ""
+
+*Agregar:
+    * Mobile
+    * Boton Filtrar
+    * Filtrar por Movimiento y por fecha
+    * Buscar
+    * Sintaxis avanzada
+    * Usar fetch 
+    * Carga de datos desde un JSON local
+    * Configurar Toastify para mostrar mensajes
+    * Instalar y configurar luxon
+    * Agregar botones para eliminar movimientos
+    * Usar Vex para confirmar al eliminar
+    * Revisar la corrección de la entrega anterior.
+
+    
+
+## Versión 5fb2708 "Grid":
+*Cambios:
+    * Mejoré estilo CSS.
+    * Agregué suma Saldo.
+    * Agregué condicionales para números positivos y negativos.
+
+## Version ec288ce "DOM 2":
 *Cambios:
     * Agregué una función para validar la carga de datos en el formulario. Si es cero muestra un aviso.
 

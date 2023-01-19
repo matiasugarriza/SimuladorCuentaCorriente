@@ -92,12 +92,15 @@ section{
 }
 svg{
     display: inline-block;
-    width: 4vh;
+    width: 2vw;
     fill: rebeccapurple;
 }
 .encabezadoMovimientos{
     background-color: rebeccapurple;
     color:aliceblue;
+}
+.lineaMovimientos .checkbox{
+    /* display: none; */
 }
 .columnasMovimientos {
     padding-left: 1vw;
@@ -124,4 +127,10 @@ footer{
 }
 footer a{
     color: aliceblue; 
+}
+@media (max-width: 768px) {
+/*     .movimientos {
+        grid-column: 1/2;
+        grid-row: 2/6;
+    } */
 }
