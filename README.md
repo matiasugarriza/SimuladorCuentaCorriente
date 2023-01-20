@@ -10,6 +10,8 @@ El proyecto se trata de una simulación de cuenta corriente donde los datos se i
 ## Versión Actual:
 *Cambios:
     *Botón BorrarTodo con Sweet Alert.
+    *Creé un botón que con fetch trae datos de un json local.
+    *Interacción con movimientos cargados.
 
 
 *Agregar:
@@ -17,14 +19,13 @@ El proyecto se trata de una simulación de cuenta corriente donde los datos se i
     * Boton Filtrar
     * Filtrar por Movimiento y por fecha
     * Buscar
-    * Sintaxis avanzada
-    * Usar fetch 
     * Carga de datos desde un JSON local
     * Configurar Toastify para mostrar mensajes
     * Instalar y configurar luxon
     * Agregar botones para eliminar movimientos
     * Usar Vex para confirmar al eliminar
     * Revisar la corrección de la entrega anterior.
+    *Corregir formato al cargar ejemplos.
 
     
 

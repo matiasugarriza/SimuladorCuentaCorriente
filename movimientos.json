@@ -1,0 +1,4 @@
+[{"fecha":"2022-11-20","monto":-800,"tipoDeMovimiento":"Egreso","detalle":"Entradas Cine"},
+{"fecha":"2022-12-10","monto":-5000,"tipoDeMovimiento":"Egreso","detalle":"Compra Almacén"},	
+{"fecha":"2022-11-10","monto":-750,"tipoDeMovimiento":"Egreso","detalle":"Almuerzo"},
+{"fecha":"2022-12-05","monto":75000,"tipoDeMovimiento":"Ingreso","detalle":"Aguinaldo"}]

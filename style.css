@@ -108,9 +108,10 @@ svg{
     grid-template-columns: repeat(3, 1fr);
     justify-content: space-around;
 }
-.lineaMovimientos:hover{
+.columnasMovimientos:hover, .columnasMovimientos label:hover{
     background-color: rgb(178, 173, 248);
     transition-delay: 20ms;
+    cursor: pointer;
 }
 .cajaContenedor {
     background-color: rgb(194, 194, 194);
@@ -127,6 +128,9 @@ footer{
 }
 footer a{
     color: aliceblue; 
+}
+.swal2-popup .swal2-modal .swal2-icon-warning .swal2-show{
+    transition: none;
 }
 @media (max-width: 768px) {
 /*     .movimientos {

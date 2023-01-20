@@ -11,6 +11,20 @@ class Movimiento {
     }
 }
 
+///////* Estructuras de datos *////////
+
+
+/////* Variables */////
+let id = 0;
+
+//Guardar valores en localStorage
+const guardarLocal = (clave, valor) => {localStorage.setItem(clave, valor) };
+
+
+//Array para almacenar los movimientos.
+const movimientos = [];
+
+
 //////* Funciones: *//////
 function fechaActual() {
     const hoy = new Date();
@@ -71,18 +85,18 @@ function guardarMovimiento(){
     mostrarMovimientos();
   }
 
-  //Suma del saldos de los movimientos.
-  function sumarSaldo() {
-    const sumaSaldo = movimientos.map(movimiento => movimiento.monto).reduce((prev, curr) => prev + curr, 0);
-    const mostrarSumaSaldo = document.getElementById("saldo");
-    mostrarSumaSaldo.innerHTML = `: $${sumaSaldo.toFixed(2)} `
-  }
-  //Modificación del DOM para mostrar movimientos:
-  const contenedorMovimientos = document.getElementById("contenedorMovimientos");
+//Suma del saldos de los movimientos.
+function sumarSaldo() {
+const sumaSaldo = movimientos.map(movimiento => movimiento.monto).reduce((prev, curr) => prev + curr, 0);
+const mostrarSumaSaldo = document.getElementById("saldo");
+mostrarSumaSaldo.innerHTML = `: $${sumaSaldo.toFixed(2)} `
+}
+//Modificación del DOM para mostrar movimientos:
+const contenedorMovimientos = document.getElementById("contenedorMovimientos");
 
-  const mostrarMovimientos = () => {
-    //Ordeno los movimientos según su fecha:
-    ordenarPorFecha => {
+const mostrarMovimientos = () => {
+//Ordeno los movimientos según su fecha:
+ordenarPorFecha => {
     movimientos.sort((a, b) => {
         if (a.fecha < b.fecha) {
         return 1;
@@ -91,75 +105,87 @@ function guardarMovimiento(){
         return -1;
         }
         return 0;
-        });
-    };
-    movimientos.forEach( movimiento => {
-        const line = document.createElement("div");
-        line.setAttribute("id",`${movimiento.id}`);
-        line.classList.add("columnasMovimientos");
-        line.classList.add("lineaMovimientos");
-        line.innerHTML = `
-                    <input type="checkbox" class="checkbox" id="checkbox${movimiento.id}"></input>
-                    <label for="checkbox${movimiento.id}">${movimiento.fecha}</label>
-                    <label for="checkbox${movimiento.id}">${movimiento.detalle}</label>
-                    <label for="checkbox${movimiento.id}">${movimiento.monto}</label>
-        `
+    });
+};
+movimientos.forEach( movimiento => {
+    const line = document.createElement("div");
+    line.setAttribute("id",`${movimiento.id}`);
+    line.classList.add("columnasMovimientos");
+    line.classList.add("lineaMovimientos");
+    line.innerHTML = `
+                <input type="checkbox" class="checkbox" id="checkbox${movimiento.id}"></input>
+                <label for="checkbox${movimiento.id}">${movimiento.fecha}</label>
+                <label for="checkbox${movimiento.id}">${movimiento.detalle}</label>
+                <label for="checkbox${movimiento.id}"> $ ${movimiento.monto}</label>
+    `
     contenedorMovimientos.appendChild(line);
     });
     sumarSaldo();
-  }
+};
+
+
+const miFormulario = document.getElementById("formulario");
+miFormulario.addEventListener("submit", validarFormulario);
+miFormulario.addEventListener("submit", guardarMovimiento);
+
+
+function validarFormulario(e){
+    e.preventDefault();
+}
+
+//Botón Borrar todo:
+const btnBorrarTodo = document.getElementById("borrarTodo");
+btnBorrarTodo.addEventListener("click", BorrarTodo => {
+Swal.fire({
+    title: 'Estás a punto de eliminar todos los movimientos.',
+    text: "¿Estás seguto?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#663399',
+    cancelButtonColor: '#dc3741',
+    confirmButtonText: '¡Sí, borrar todo!',
+    showClass:{
+        popup: 'animate__pulse'
+    },
+    hideClass: {
+        popup: 'animate__fadeOut'
+    }
+    }).then((result) => {
+    if (result.isConfirmed) {
+        Swal.fire(
+        localStorage.clear(),
+        'Todos los movimientos han sido eliminados.',
+        ).then((result)=>{
+        location.reload();
+        })}})
+    });
+
+//Botón cargar movimientos de ejemplo:
+
+const mostrarEjemplos = document.getElementById("ejemplos");
+mostrarEjemplos.addEventListener("click", traerEjemplos => {
+    fetch('movimientos.json')
+    .then( (resp) => resp.json() )
+    .then( (data) => {
+        data.forEach((traerMovimiento) => {
+            idDeMovimiento();
+            traerMovimiento.id = id;
+            movimientos.push(traerMovimiento);
+            for (const movimiento of movimientos) {
+                guardarLocal(id, JSON.stringify(movimiento));
+            }
+        })
+        location.reload();
+        mostrarMovimientos();
+    });
+})
+    
+//Acciones sobre las líneas de movimiento
+
   
-
-  const miFormulario = document.getElementById("formulario");
-  miFormulario.addEventListener("submit", validarFormulario);
-  miFormulario.addEventListener("submit", guardarMovimiento);
- 
-
-  function validarFormulario(e){
-      e.preventDefault();
-  }
-
-  //Botón Borrar todo:
-  const btnBorrarTodo = document.getElementById("borrarTodo");
-  btnBorrarTodo.addEventListener("click", BorrarTodo => {
-    Swal.fire({
-        title: 'Estás a punto de eliminar todos los movimientos.',
-        text: "¿Estás seguto?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '¡Sí, borrar todo!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire(
-            localStorage.clear(),
-            'Todos los movimientos han sido eliminados',
-          ).then((result)=>{
-            location.reload();
-          })}})
-        });
-
-  //Acciones sobre las líneas de movimiento
-
-  
-///////* Estructuras de datos *////////
-
-//Array para almacenar los movimientos.
-const movimientos = [];
-
-
-/////* Variables */////
-let id = 0;
-
-//Guardar valores en localStorage
-const guardarLocal = (clave, valor) => {localStorage.setItem(clave, valor) };
-
 //////*Programa*//////
 recuperarLocalStorage();
 
-const checkboxes = document.querySelector('.checkbox');
-checkboxes.addEventListener("change", function abrirMensaje() {
-    
-    }        
-    );
+
+
+
