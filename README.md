@@ -1,31 +1,19 @@
-# Pre Entrega 2 - Matías Ugarriza
+# Entrega Final - Matías Ugarriza
 
-## Objetivo del proyecto: Simulador de cuenta corriente.
-El proyecto se trata de una simulación de cuenta corriente donde los datos se ingresan de manera manual mediante un cuadro de diálogo generado por un prompt. 
-#### Pasos:
-1. Se registra un saldo inicial que luego se muestra por consola.
-2. Se registra una cantidad de movimientos indefinida y el sistema devuelve los datos de cada movimiento. En paralelo suma o resta estos valores del saldo inicial.
-3. Se imprime en consola el saldo final.
+## Descripción del proyecto: Simulador de cuenta corriente.
+El proyecto se trata de una simulación de cuenta corriente donde los datos se ingresan de manera manual mediante un formulario.
+
 
 ## Versión Actual:
 *Cambios:
     *Botón BorrarTodo con Sweet Alert.
     *Creé un botón que con fetch trae datos de un json local.
+    *Agregué funcionalidad de filtrar por movimientos.
     *Interacción con movimientos cargados.
 
 
 *Agregar:
-    * Mobile
-    * Boton Filtrar
-    * Filtrar por Movimiento y por fecha
-    * Buscar
-    * Carga de datos desde un JSON local
-    * Configurar Toastify para mostrar mensajes
-    * Instalar y configurar luxon
-    * Agregar botones para eliminar movimientos
-    * Usar Vex para confirmar al eliminar
-    * Revisar la corrección de la entrega anterior.
-    *Corregir formato al cargar ejemplos.
+    * Corregir formato al cargar ejemplos.
 
     
 

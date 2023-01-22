@@ -33,6 +33,13 @@ function fechaActual() {
     actualizarFecha.innerHTML = `: ${ahora}`;
 }
 
+//Ordenar Array por fecha:
+function ordenarPorFecha() {
+    
+    movimientos.sort((a, b) => a.fecha > b.fecha);
+    
+}
+
 //Recupero los datos del localStorage al iniciar recargar la página.
 function recuperarLocalStorage() {
     for (let i = 1; i <= localStorage.length; i++) {
@@ -53,20 +60,34 @@ function idDeMovimiento() {
 }
 //Validación al enviar formulario.
 function validarFormularioVacio() {
-    if(monto == 0 || fecha <= 0 || tipoDeMovimiento.value === "Seleccione una opción" ){
-        const avisoCompletarMonto = document.getElementById("avisos");
-        avisoCompletarMonto.classList.add("aviso");
-        avisoCompletarMonto.innerHTML = `
-                <p>Los datos no pueden estar vacíos.<p>
-        ` ;
+    if(isNaN(monto) || fecha <= 0 || tipoDeMovimiento == "null" ){
+        Toastify({
+            text: "Los datos no pueden estar vacíos.",
+            className: "info",
+            position: "center",
+            style: {
+              background: "linear-gradient(to right, #b01500, #ff4c05)",
+            }
+          }).showToast();
     }else{
-        const borrarAviso = document.getElementById("avisos");
-        borrarAviso.innerHTML = ``;
         movimientos.push(new Movimiento(id, fecha, monto, tipoDeMovimiento, detalle));
         for (const movimiento of movimientos) {
             guardarLocal(movimiento.id, JSON.stringify(movimiento));
         }
+        Toastify({
+            text: "Movimiento guardado.",
+            className: "info",
+            position: "center",
+            style: {
+              background: "linear-gradient(to right, #1bb61b, #00c753)",
+            }
+        }).showToast();
     }
+}
+//Función para borrar Movimientos ANteriores:
+function borrarMovimientosAnteriores() {
+    const borrarDatosAnteriores = document.getElementById("contenedorMovimientos");
+    borrarDatosAnteriores.innerHTML = ``;
 }
 
 //Esta función toma los valores del formulario, borra los datos del contenedorMovimientos y los vuelve a escribir para que los movimientos queden ordenados segun fecha.
@@ -80,10 +101,12 @@ function guardarMovimiento(){
     tipoDeMovimiento = document.getElementById("tipoDeMovimiento").value;
     detalle = document.getElementById("detalle").value || tipoDeMovimiento;             
     validarFormularioVacio();
-    const borrarDatosAnteriores = document.getElementById("contenedorMovimientos");
-    borrarDatosAnteriores.innerHTML = ``;
     mostrarMovimientos();
-  }
+}
+
+function validarFormulario(e){
+    e.preventDefault();
+}
 
 //Suma del saldos de los movimientos.
 function sumarSaldo() {
@@ -91,54 +114,54 @@ const sumaSaldo = movimientos.map(movimiento => movimiento.monto).reduce((prev, 
 const mostrarSumaSaldo = document.getElementById("saldo");
 mostrarSumaSaldo.innerHTML = `: $${sumaSaldo.toFixed(2)} `
 }
-//Modificación del DOM para mostrar movimientos:
-const contenedorMovimientos = document.getElementById("contenedorMovimientos");
 
-const mostrarMovimientos = () => {
-//Ordeno los movimientos según su fecha:
-ordenarPorFecha => {
-    movimientos.sort((a, b) => {
-        if (a.fecha < b.fecha) {
-        return 1;
+//Filtros para buscar movimientos
+
+function filtroMovimientos(){
+    const filtroMovimientos = document.getElementById("filtrarMovimientos");
+    const egresos = Array.from(document.querySelectorAll(".Egreso"));
+    const ingresos = Array.from(document.querySelectorAll(".Ingreso"));
+
+    filtroMovimientos.addEventListener("change", (e) =>{
+        if(e.target.value == "ingresos"){
+        egresos.forEach(egreso => {
+            egreso.setAttribute('style', 'display:none');
+        });
+        ingresos.forEach(ingreso => {
+            ingreso.setAttribute('style', 'display:grid');
+        });
+        } else if(e.target.value == "egresos"){
+        egresos.forEach(egreso => {
+            egreso.setAttribute('style', 'display:grid');
+            });
+        ingresos.forEach(ingreso => {
+            ingreso.setAttribute('style', 'display:none');
+        });  
+        }else{
+            egresos.forEach(egreso => {
+                egreso.setAttribute('style', 'display:grid');
+            });
+            ingresos.forEach(ingreso => {
+                ingreso.setAttribute('style', 'display:grid');
+            });
         }
-        if (a.fecha > b.fecha) {
-        return -1;
-        }
-        return 0;
     });
-};
-movimientos.forEach( movimiento => {
-    const line = document.createElement("div");
-    line.setAttribute("id",`${movimiento.id}`);
-    line.classList.add("columnasMovimientos");
-    line.classList.add("lineaMovimientos");
-    line.innerHTML = `
-                <input type="checkbox" class="checkbox" id="checkbox${movimiento.id}"></input>
-                <label for="checkbox${movimiento.id}">${movimiento.fecha}</label>
-                <label for="checkbox${movimiento.id}">${movimiento.detalle}</label>
-                <label for="checkbox${movimiento.id}"> $ ${movimiento.monto}</label>
-    `
-    contenedorMovimientos.appendChild(line);
-    });
-    sumarSaldo();
-};
+}
 
 
+/* EVENTOS Y BOTONES */
 const miFormulario = document.getElementById("formulario");
 miFormulario.addEventListener("submit", validarFormulario);
 miFormulario.addEventListener("submit", guardarMovimiento);
 
 
-function validarFormulario(e){
-    e.preventDefault();
-}
 
 //Botón Borrar todo:
 const btnBorrarTodo = document.getElementById("borrarTodo");
 btnBorrarTodo.addEventListener("click", BorrarTodo => {
 Swal.fire({
     title: 'Estás a punto de eliminar todos los movimientos.',
-    text: "¿Estás seguto?",
+    text: "¿Estás seguro?",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#663399',
@@ -151,13 +174,14 @@ Swal.fire({
         popup: 'animate__fadeOut'
     }
     }).then((result) => {
-    if (result.isConfirmed) {
-        Swal.fire(
-        localStorage.clear(),
-        'Todos los movimientos han sido eliminados.',
-        ).then((result)=>{
-        location.reload();
-        })}})
+        if (result.isConfirmed) {
+            Swal.fire(
+            localStorage.clear(),
+            'Todos los movimientos han sido eliminados.',
+            ),
+            borrarMovimientosAnteriores(),
+            movimientos.splice(0, movimientos.length)
+            }})
     });
 
 //Botón cargar movimientos de ejemplo:
@@ -175,17 +199,36 @@ mostrarEjemplos.addEventListener("click", traerEjemplos => {
                 guardarLocal(id, JSON.stringify(movimiento));
             }
         })
-        location.reload();
         mostrarMovimientos();
     });
 })
+
+//Modificación del DOM para mostrar movimientos:
+const contenedorMovimientos = document.getElementById("contenedorMovimientos");
+const mostrarMovimientos = () => {
+    borrarMovimientosAnteriores();
+    movimientos.forEach( movimiento => {
+        ordenarPorFecha();
+        const line = document.createElement("div");
+        line.setAttribute("id",`${movimiento.id}`);
+        line.classList.add("columnasMovimientos");
+        line.classList.add("lineaMovimientos");
+        line.classList.add(`${movimiento.tipoDeMovimiento}`)
+        line.innerHTML = `
+                    <input type="checkbox" class="checkbox" id="checkbox${movimiento.id}"></input>
+                    <label for="checkbox${movimiento.id}">${movimiento.fecha}</label>
+                    <label for="checkbox${movimiento.id}">${movimiento.detalle}</label>
+                    <label for="checkbox${movimiento.id}"> $ ${movimiento.monto}</label>
+        `
+        contenedorMovimientos.appendChild(line);
+        });
+    sumarSaldo();
+    filtroMovimientos();
     
-//Acciones sobre las líneas de movimiento
+};
+
 
   
 //////*Programa*//////
 recuperarLocalStorage();
-
-
-
 

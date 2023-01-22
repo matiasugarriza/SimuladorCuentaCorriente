@@ -100,7 +100,7 @@ svg{
     color:aliceblue;
 }
 .lineaMovimientos .checkbox{
-    /* display: none; */
+    display: none;
 }
 .columnasMovimientos {
     padding-left: 1vw;
@@ -108,7 +108,7 @@ svg{
     grid-template-columns: repeat(3, 1fr);
     justify-content: space-around;
 }
-.columnasMovimientos:hover, .columnasMovimientos label:hover{
+.lineaMovimientos:hover, .columnasMovimientos label:hover{
     background-color: rgb(178, 173, 248);
     transition-delay: 20ms;
     cursor: pointer;
